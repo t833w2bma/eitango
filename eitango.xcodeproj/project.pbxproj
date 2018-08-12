@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F3B626D21200714005F67ED /* ViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3B626C21200714005F67ED /* ViewController3.swift */; };
 		5F59E0AB2114F5B20007FEBD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F59E0AA2114F5B20007FEBD /* AppDelegate.swift */; };
 		5F59E0AD2114F5B30007FEBD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F59E0AC2114F5B30007FEBD /* ViewController.swift */; };
 		5F59E0B02114F5B30007FEBD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F59E0AE2114F5B30007FEBD /* Main.storyboard */; };
 		5F59E0B22114F5B40007FEBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F59E0B12114F5B40007FEBD /* Assets.xcassets */; };
 		5F59E0B52114F5B40007FEBD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F59E0B32114F5B40007FEBD /* LaunchScreen.storyboard */; };
+		5FA1B850211FC7B400F3525D /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FA1B84F211FC7B400F3525D /* ViewController2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F3B626C21200714005F67ED /* ViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController3.swift; sourceTree = "<group>"; };
 		5F59E0A72114F5B20007FEBD /* eitango.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eitango.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F59E0AA2114F5B20007FEBD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F59E0AC2114F5B30007FEBD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -22,6 +25,7 @@
 		5F59E0B12114F5B40007FEBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F59E0B42114F5B40007FEBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F59E0B62114F5B40007FEBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5FA1B84F211FC7B400F3525D /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				5F59E0AA2114F5B20007FEBD /* AppDelegate.swift */,
 				5F59E0AC2114F5B30007FEBD /* ViewController.swift */,
 				5F59E0AE2114F5B30007FEBD /* Main.storyboard */,
+				5FA1B84F211FC7B400F3525D /* ViewController2.swift */,
+				5F3B626C21200714005F67ED /* ViewController3.swift */,
 				5F59E0B12114F5B40007FEBD /* Assets.xcassets */,
 				5F59E0B32114F5B40007FEBD /* LaunchScreen.storyboard */,
 				5F59E0B62114F5B40007FEBD /* Info.plist */,
@@ -137,6 +143,8 @@
 			files = (
 				5F59E0AD2114F5B30007FEBD /* ViewController.swift in Sources */,
 				5F59E0AB2114F5B20007FEBD /* AppDelegate.swift in Sources */,
+				5F3B626D21200714005F67ED /* ViewController3.swift in Sources */,
+				5FA1B850211FC7B400F3525D /* ViewController2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,11 +291,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G5WB6365WQ;
 				INFOPLIST_FILE = eitango/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eitango;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eitangoj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -301,11 +310,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = G5WB6365WQ;
 				INFOPLIST_FILE = eitango/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.eitango;
+				PRODUCT_BUNDLE_IDENTIFIER = com.eitangoj;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
