@@ -18,12 +18,20 @@ class ViewController3: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadUri()
+        issueName()
   
     }
     
     //Next Button
     @IBAction func tap2(_ sender: Any) {
+        if tarr.count < 2{
+           cleateArr()
+        }
+        shaffle() // nextボタンでも問題を呼び出す
+    }
+    
+    // 配列作成
+    func cleateArr(){
         var tng = [String:String]()
         let userDefault = UserDefaults.standard
         
@@ -32,7 +40,6 @@ class ViewController3: UIViewController {
             // 取り出した値をテキストフィールドに設定
             let val = value.split(separator: ",")
             tango.removeFirst() //初期化時に入れた0番目を削除
-            
             for (v) in val{
                 let kv = v.split(separator: ":")
                 tng=[String(kv[0]): String(kv[1])]
@@ -44,13 +51,11 @@ class ViewController3: UIViewController {
         }else{
             print("data not found")
         }
-        shaffle() // nextボタンでも問題を呼び出す
-        
     }
+    
     
     ///解答ボタン
     @IBAction func button(_ sender: Any) {
-        
         guard let tarrAns:String = tarr[tkey] else {
             return
         }
@@ -88,13 +93,31 @@ class ViewController3: UIViewController {
     }
     
  // web 読み込み
-    func loadUri(){
+    @IBAction func noun(_ sender: Any) {
+        issueName()
+    }
+    func issueName(){
+        let urin="https://ultimai.org/mdlsrc/fiddle/eitango_h1nam4.txt"
+        loadUri(uri:urin)
+    }
+   
+    @IBAction func verb(_ sender: Any) {
+        issueAct()
+    }
+    func issueAct(){
+        let urin="https://ultimai.org/mdlsrc/fiddle/eitango_h1acv.txt"
+        loadUri(uri:urin)
+    }
+    
+    func loadUri(uri:String){
         // セッションの取り出し
         let session = URLSession.shared
         var html:String? = ""
   
+
+        
         // URLオブジェクトを生成
-        if let uria = URL(string: "https://ultimai.org/mdlsrc/fiddle/eitango_h1acv.txt") {
+        if let uria = URL(string: uri) {
             // リクエストオブジェクトを生成
             let request = URLRequest(url: uria)
             // 処理タスクを生成
@@ -108,10 +131,11 @@ class ViewController3: UIViewController {
                 // Data型の変数をString型に変換してprintで出力
                 html = String(data: data, encoding: String.Encoding.utf8)
                guard let htmls = html else { return }
-   //  print(html!)
                 let htmlds = htmls.replacingOccurrences(of: "\r\n", with: "")
                 // UserDefaultsの参照
                 let userDefault = UserDefaults.standard
+                userDefault.removeObject(forKey: "h1acv") //ストレージから削除
+                
                 // h1acvというキーで値を保存する
                 userDefault.set(htmlds, forKey: "h1acv")
                 // UserDefaultsへの値の保存を明示的に行う
