@@ -2,61 +2,135 @@
 //  eitango
 
 import UIKit
+import Foundation
+import AVFoundation
 
 class ViewController3: UIViewController {
-
-    @IBOutlet weak var tap: UIButton!
-    @IBOutlet weak var textField: UITextField!
-    struct JsonSample : Codable{
-        var id : Int
-        var name : String
-    }
-
+   
+    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var tf: UITextField!
     
-    var jsondata:String = ""
-    
-    
-    
-    @IBAction func tap(_ sender: Any) {
-        
-    }
-    
-    @IBAction func tap2(_ sender: Any) {
-         let userDefaults = UserDefaults.standard
-        // textというキーを指定して保存していた値を取り出す
-        if let value = userDefaults.string(forKey: "text") {
-            // 取り出した値をテキストフィールドに設定
-            print(value)
-        }
-        
-    }
-    
-    
+    var tango:[[String:String]] = [[:]] // jisho initialize
+    var tkey = ""
+    var tarr =  [String: String]()
+ 
+//描画時実行
     override func viewDidLoad() {
         super.viewDidLoad()
-      //print(json!.name )
-        let listUrl = "https://ultimai.org/mdlsrc/fiddle/eitango.json"
         
-        guard let url = URL(string: listUrl) else { return }
+        loadUri()
+  
+    }
+    
+    //Next Button
+    @IBAction func tap2(_ sender: Any) {
+        var tng = [String:String]()
+        let userDefault = UserDefaults.standard
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print(error!.localizedDescription)
+        // textというキーを指定して保存していた値を取り出して配列作成
+        if let value = userDefault.string(forKey: "h1acv") {
+            // 取り出した値をテキストフィールドに設定
+            let val = value.split(separator: ",")
+            tango.removeFirst() //初期化時に入れた0番目を削除
+            
+            for (v) in val{
+                let kv = v.split(separator: ":")
+                tng=[String(kv[0]): String(kv[1])]
+                tango+=[tng] // 設問セットを加算代入
             }
             
-            guard let data = data else { return }
+            shaffle()
             
-            let json = try? JSONDecoder().decode(JsonSample.self, from: data)
-            self.jsondata=json!.name
+        }else{
+            print("data not found")
+        }
+        shaffle() // nextボタンでも問題を呼び出す
+        
+    }
+    
+    ///解答ボタン
+    @IBAction func button(_ sender: Any) {
+        
+        guard let tarrAns:String = tarr[tkey] else {
+            return
+        }
+        if tarrAns == tf.text!{
+            label.text = tkey + " 正解!"
             
-            // UserDefaultsの参照
-            let userDefaults = UserDefaults.standard
-            // textというキーで値を保存する
-            userDefaults.set(self.jsondata, forKey: "text")
-            // UserDefaultsへの値の保存を明示的に行う
-            userDefaults.synchronize()
-            
-            }.resume()
+        }else{
+            label.text = tkey + " はずれ!"
+            tf.text = ""
+        }
+    }
+    
+    
+    // 聞くボタン
+    @IBAction func hir(_ sender: Any) {
+        guard let tarrAns:String = tarr[tkey] else {
+            return
+        }
+        
+        let speak:AVSpeechSynthesizer = AVSpeechSynthesizer()
+        let speech = AVSpeechUtterance(string: tarrAns )
+        speech.voice = AVSpeechSynthesisVoice(language: "en-US")
+        speak.speak(speech)
+    }
+    
+    
+    //降参ボタン
+    @IBAction func kosan(_ sender: Any) {
+        guard let tarrAns:String = tarr[tkey] else {
+            return
+        }
+        label.text = tkey + " 正解は " + tarrAns
+        // キーボードを閉じる
+        tf.endEditing(true);
+    }
+    
+ // web 読み込み
+    func loadUri(){
+        // セッションの取り出し
+        let session = URLSession.shared
+        var html:String? = ""
+  
+        // URLオブジェクトを生成
+        if let uria = URL(string: "https://ultimai.org/mdlsrc/fiddle/eitango_h1acv.txt") {
+            // リクエストオブジェクトを生成
+            let request = URLRequest(url: uria)
+            // 処理タスクを生成
+            let task = session.dataTask(with: request, completionHandler: {
+                (data:Data?, response:URLResponse?, error:Error?) in
+                // データ取得後に呼ばれる処理はここに記載する
+                guard let data = data else {
+                    print("データなし")
+                    return
+                }
+                // Data型の変数をString型に変換してprintで出力
+                html = String(data: data, encoding: String.Encoding.utf8)
+               guard let htmls = html else { return }
+   //  print(html!)
+                let htmlds = htmls.replacingOccurrences(of: "\r\n", with: "")
+                // UserDefaultsの参照
+                let userDefault = UserDefaults.standard
+                // h1acvというキーで値を保存する
+                userDefault.set(htmlds, forKey: "h1acv")
+                // UserDefaultsへの値の保存を明示的に行う
+                userDefault.synchronize()
+            })
+            // 処理開始
+            task.resume()
+        } //if let
+    }
+    
+    
+    //配列をシャッフルし問題表示
+    func shaffle(){
+        let tc =  UInt32( tango.count)
+        let i = Int(arc4random_uniform(tc))
+        tarr = tango[i]
+        tkey = Array(tarr.keys)[0]
+        label.text = tkey
+        tf.text = ""
         
     }
 
