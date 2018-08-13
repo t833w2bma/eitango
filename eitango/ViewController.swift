@@ -8,7 +8,6 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var tf: UITextField!
-    @IBOutlet weak var tapNext: UIButton!
   
     var tango = [["月曜日": "monday"],["火曜日":"tuesday"],["水曜日":"wednesday"],["木曜日":"thursday"],["金曜日":"friday"],["土曜日":"saturday"],["日曜日":"sunday"]]
     var tkey = ""
@@ -16,7 +15,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        shaffle() // ここで問題を呼び出す
+         shaffle()// ここで問題を呼び出す
     }
     
     
@@ -25,26 +24,23 @@ class ViewController: UIViewController {
     }
     
     func shaffle(){
-        let tc =  UInt32( tango.count)
-        let i = Int(arc4random_uniform(tc))
-        tarr = tango[i]
-        tkey = Array(tarr.keys)[0]
-        label.text = tkey
-        
+        let tc =  UInt32( tango.count) //配列の要素数
+        let i = Int(arc4random_uniform(tc)) //要素数分の乱数発生
+        tarr = tango[i] //ランダムな曜日セットを取り出す
+        tkey = Array(tarr.keys)[0]  // 曜日セットからキーを取り出す
+        label.text = tkey   // キーをラベル文字に表示する
+        tf.text = ""        // テキストフィールドをからにする
     }
     
 
-    @IBAction func button(_ sender: Any) {
-        
-        print(tarr[tkey]!)
+    @IBAction func answer(_ sender: Any) {
         if tarr[tkey]! == tf.text!{
             label.text = tkey + " 正解!"
-             tf.text = ""
+            
         }else{
             label.text = tkey + " はずれ!"
             tf.text = ""
         }
-        
     }
     
     
